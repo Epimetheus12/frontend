@@ -30,14 +30,14 @@ class LoginPage extends Component {
         this.setState({"touched":{hiddenPass: !this.state.touched.hiddenPass}})
     }
 
+
+
     componentDidUpdate(prevProps, prevState,_prevContext) {
-        console.log(this.props.loginSuccess);
         if (this.props.loginError != null && prevProps.loginError !== this.props.loginError) {
             toast.error(<ToastComponent.errorToast text={`${this.props.loginError}`} />, {
                 position: toast.POSITION.TOP_RIGHT
             });
-        } else if (this.props.loginError == null) {
-            console.log("======================")
+        } else if (this.props.loginSuccess) {
             this.props.redirect();
 
             toast.success(<ToastComponent.successToast text={' You have successfully logged in!'} />, {

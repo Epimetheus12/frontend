@@ -63,13 +63,13 @@ export default {
 
     isTheUserLoggedIn: () => {
         const token = localStorage.getItem('token')
+        // console.log("========================")
         if (token !== null && token !== undefined) {
             try {
                 const payload = JSON.parse(atob(token.split('.')[1]));
                 const username = payload['sub'];
-
                 if (payload) {
-                    if (username !== null || username !== undefined) {
+                    if (username !== null && username !== undefined) {
                         return true;
                     }
                 }
@@ -88,10 +88,10 @@ export default {
         const token = localStorage.getItem('token')
         if (token !== null && token !== undefined) {
             const payload = JSON.parse(atob(token.split('.')[1]));
-            const role = payload['role'];
+            const role = payload['role'][0]['authority'];
 
             if (payload) {
-                if ((role !== null || role !== undefined) && role === 'ROOT') {
+                if ((role !== null && role !== undefined) && role === 'ROOT') {
                     return true;
                 }
             }
@@ -104,31 +104,31 @@ export default {
         const token = localStorage.getItem('token')
         if (token !== null && token !== undefined) {
             const payload = JSON.parse(atob(token.split('.')[1]));
-            const role = payload['role'];
+            const role = payload['role'][0]['authority'];
             if (payload) {
-                if ((role !== null || role !== undefined) && (role === 'ADMIN' || role === 'ROOT')) {
+                if ((role !== null && role !== undefined) && (role === 'ADMIN' || role === 'ROOT')) {
                     return true;
                 }
             }
         }
 
         return false;
-    },
-
-
-    isLoggedInUser(username) {
-        const token = localStorage.getItem('token')
-        if (token !== null && token !== undefined) {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-
-            if (payload) {
-                const loggedInUserName = payload['sub'];
-                if (username === loggedInUserName) {
-                    return true;
-                }
-                return false;
-            }
-        }
     }
+
+
+    // isLoggedInUser(username) {
+    //     const token = localStorage.getItem('token')
+    //     if (token !== null && token !== undefined) {
+    //         const payload = JSON.parse(atob(token.split('.')[1]));
+    //
+    //         if (payload) {
+    //             const loggedInUserName = payload['sub'];
+    //             if (username === loggedInUserName) {
+    //                 return true;
+    //             }
+    //             return false;
+    //         }
+    //     }
+    // }
 
 }

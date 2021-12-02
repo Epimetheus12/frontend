@@ -1,4 +1,4 @@
-import {requester, userService} from '../../infrastructure';
+import {requester, userService, checkStatus} from '../../infrastructure';
 import * as actionTypes from './actionTypes';
 
 
@@ -9,10 +9,10 @@ function registerSuccess(data) {
     }
 }
 
-function registerError(message) {
+function registerError(err) {
     return {
         type: actionTypes.REGISTER_ERROR,
-        error: message
+        error: err
     }
 }
 
@@ -24,7 +24,7 @@ export const loginStart = () => {
 
 export const loginSuccess = (token, username) => {
     return {
-        type: actionTypes.LOGOUT_SUCCESS,
+        type: actionTypes.LOGIN_SUCCESS,
         token: token,
         username: username
     };
@@ -43,11 +43,17 @@ export const loginError = (error) => {
     };
 };
 
-export const logout = () => {
-    localStorage.clear();
+export const logoutSuccess = () => {
     return {
         type: actionTypes.LOGOUT_SUCCESS
     };
+}
+
+export const logout = () => {
+    return (dispatch) => {
+        localStorage.clear();
+        dispatch(logoutSuccess())
+    }
 };
 
 export const checkAuthTimeout = (expirationTime) => {
@@ -66,7 +72,7 @@ export const loginAction = (username, password) => {
             password: password,
         };
 
-        requester.post('/user/authenticate', authData)
+        requester.post('/user/authenticate', authData).then(checkStatus)
             .then(data => {
                 console.log(data);
                 localStorage.setItem('token', data.data);
@@ -76,17 +82,15 @@ export const loginAction = (username, password) => {
             localStorage.clear();
             dispatch(loginError(`${err.message}`));
         })
-
     };
 };
 
 export const registerAction = (userData) => {
     return dispatch => {
-        requester.post('/user/create', userData)
+        requester.post('/user/create', userData).then(checkStatus)
             .then(data =>{
             dispatch(registerSuccess(data))
         }).catch(err => {
-            localStorage.clear();
             dispatch(registerError(`${err.message}`));
         })
     }

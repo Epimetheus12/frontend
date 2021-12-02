@@ -18,16 +18,11 @@ class RegisterPage extends Component {
             email: '',
             password: '',
             confirmPassword: '',
-            firstName: '',
-            lastName: '',
-
             touched: {
                 username: false,
                 email: false,
                 password: false,
                 confirmPassword: false,
-                firstName: false,
-                lastName: false,
                 hiddenPass: false,
                 hiddenConfirmPass:false
             }
@@ -47,7 +42,7 @@ class RegisterPage extends Component {
         } else if (this.props.registerSuccess) {
             this.props.redirect();
 
-            toast.success(<ToastComponent.successToast text={this.props.registerMessage} />, {
+            toast.success(<ToastComponent.successToast text={"Successful sign-up!"} />, {
                 position: toast.POSITION.TOP_RIGHT
             });
 
@@ -56,7 +51,7 @@ class RegisterPage extends Component {
     }
 
     onChangeHandler(event) {
-        console.log(event);
+        // console.log(event);
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -83,8 +78,8 @@ class RegisterPage extends Component {
     }
 
     canBeSubmitted() {
-        const { username, email, firstName, lastName, password, confirmPassword} = this.state;
-        const errors = this.validate(username, email, firstName, lastName, password, confirmPassword);
+        const { username, email, password, confirmPassword} = this.state;
+        const errors = this.validate(username, email, password, confirmPassword);
         const isDisabled = Object.keys(errors).some(x => errors[x])
         return !isDisabled;
     }
@@ -96,29 +91,24 @@ class RegisterPage extends Component {
 
     }
 
-    validate = (username, email ,firstName, lastName, password, confirmPassword) => {
+    validate = (username, email, password, confirmPassword) => {
         const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-        const nameRegex = /^[A-Z]([a-zA-Z]+)?$/;
         const userNameRegex =/^([0-9a-zA-Z]+)?$/
         const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[.,!@#$%^&+=])(?=\S+$).{8,30}$/
         const testUsername = userNameRegex.test(username)
         const testPassword = passwordRegex.test(password)
         const testEmail = emailRegex.test(email)
-        const testFirstName = nameRegex.test(firstName)
-        const testLastName = nameRegex.test(lastName)
         return {
             username: username.length < 4 || username.length > 16 || !testUsername,
             email: email.length === 0 || !testEmail,
-            firstName: firstName.length === 0 || !testFirstName,
-            lastName: lastName.length === 0 || !testLastName,
             password: password.length < 8 || password.length > 30 || !testPassword,
             confirmPassword: confirmPassword.length === 0 || confirmPassword !== password,
         }
     }
 
     render() {
-        const { username, email, firstName, lastName, password, confirmPassword } = this.state;
-        const errors = this.validate(username, email, firstName, lastName, password, confirmPassword);
+        const { username, email, password, confirmPassword } = this.state;
+        const errors = this.validate(username, email, password, confirmPassword);
         const isEnabled = !Object.keys(errors).some(x => errors[x])
 
         const shouldMarkError = (field) => {
@@ -219,42 +209,6 @@ class RegisterPage extends Component {
                                         {shouldMarkError('confirmPassword') && <small id="confirmPasswordHelp" className="form-text alert alert-danger">Passwords do not match!</small>}
                                     </div>
 
-
-
-                                    <div className="form-group">
-                                        <label htmlFor="firstName" >First Name</label>
-                                        <input
-                                            type="text"
-                                            className={"form-control " + (shouldMarkError('firstName') ? "error" : "")}
-                                            id="firstName"
-                                            name="firstName"
-                                            value={this.state.firstName}
-                                            onChange={this.onChangeHandler}
-                                            onBlur={this.handleBlur('firstName')}
-                                            aria-describedby="firstNameHelp"
-                                            placeholder="Enter first name"
-                                        />
-                                        {shouldMarkError('firstName') && <small id="firstNameHelp" className="form-text alert alert-danger">{(!this.state.firstName ? 'First Name is required!' : 'First Name must start with a capital letter and contain only letters!')}</small>}
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="lastName" >Last Name</label>
-                                        <input
-                                            type="text"
-                                            className={"form-control " + (shouldMarkError('lastName') ? "error" : "")}
-                                            id="lastName"
-                                            name="lastName"
-                                            value={this.state.lastName}
-                                            onChange={this.onChangeHandler}
-                                            onBlur={this.handleBlur('lastName')}
-                                            aria-describedby="lastNameHelp"
-                                            placeholder="Enter last name"
-                                        />
-                                        {shouldMarkError('lastName') && <small id="lastNameHelp" className="form-text alert alert-danger">{(!this.state.lastName ? 'Last Name is required!' : 'Last Name must start with a capital letter and contain only letters!')}</small>}
-                                    </div>
-
-
-
                                 </section>
                             </div>
 
@@ -273,7 +227,6 @@ class RegisterPage extends Component {
 function mapStateToProps(state) {
     return {
         registerSuccess: state.register.success,
-        registerMessage: state.register.message,
         registerError: state.register.error
     }
 }

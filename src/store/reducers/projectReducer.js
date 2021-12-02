@@ -1,20 +1,20 @@
 import * as actionTypes from "../actions/actionTypes";
 import {updateObject} from "../stateUtility";
 
-const loadResourceStart = ( state, action ) => {
+const loadProjectStart = ( state, action ) => {
     return updateObject( state, { error: null, loading: true } );
 };
 
-const loadResourceSuccess = (state, action) => {
+const loadProjectSuccess = (state, action) => {
     return updateObject( state, {
-        resourceData: action.data,
+        projectData: action.data,
         success: true,
         error: null,
         loading: false
     } );
 };
 
-const loadResourceError = (state, action) => {
+const loadProjectError = (state, action) => {
     return updateObject( state, {
         error: action.error,
         success: false,
@@ -24,22 +24,18 @@ const loadResourceError = (state, action) => {
 
 
 
-const resourceReducer = (
+export const projectReducer = (
     state = {
-        resourceData:null,
+        projectData:null,
         success: false,
         error:null,
         loading: false
     }, action) =>{
     switch ( action.type ) {
-        case actionTypes.FETCH_RESOURCES_START: return loadResourceStart(state, action);
-        case actionTypes.FETCH_RESOURCES_SUCCESS: return loadResourceSuccess(state, action);
-        case actionTypes.FETCH_RESOURCES_ERROR: return loadResourceError(state, action);
+        case actionTypes.FETCH_PROJECTS_START: return loadProjectStart(state, action);
+        case actionTypes.FETCH_PROJECTS_SUCCESS: return loadProjectSuccess(state, action);
+        case actionTypes.FETCH_PROJECTS_ERROR: return loadProjectError(state, action);
         default:
             return state;
     }
-}
-
-export {
-    resourceReducer
 }

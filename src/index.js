@@ -7,17 +7,20 @@ import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-import {loginReducer, registerReducer} from './store/reducers/authReducer';
+import serviceWorker from './serviceWorker';
+import {loginReducer, registerReducer, projectReducer, resourceReducer} from './store/reducers';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     login: loginReducer,
-    register: registerReducer
+    register: registerReducer,
+    project: projectReducer,
+    resource: resourceReducer
 });
 
-const store = createStore(rootReducer, composeEnhancers(
+const store = createStore(rootReducer, composeWithDevTools(
     applyMiddleware(thunk)
 ));
 
@@ -30,4 +33,4 @@ const app = (
 );
 
 ReactDOM.render( app, document.getElementById( 'root' ) );
-serviceWorker.register();
+serviceWorker();

@@ -39,10 +39,6 @@ const redirect = (state, action) => {
     return updateObject(state, {success: false, error: null})
 }
 
-// const setAuthRedirectPath = (state, action) => {
-//     return updateObject(state, { authRedirectPath: action.path })
-// }
-
 const loginReducer = ( state = {
     token: null,
     userId: null,
