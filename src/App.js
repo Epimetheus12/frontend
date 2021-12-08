@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import { CircleLoader } from 'react-spinners';
 import { css } from '@emotion/react';
 import { connect } from 'react-redux';
-import SlideMenu from './components/homePage/SlideMenu';
 import {RoundedCorner} from "@material-ui/icons";
 
 const logoutAction = require('./store/actions').logout();
@@ -66,7 +65,7 @@ class App extends Component {
     // }
     return (
         <Fragment>
-          <Navbar loggedIn={localStorage.getItem('token') != null} onLogout={this.onLogout} {...this.props} />
+            <Navbar loggedIn={localStorage.getItem('token') != null} onLogout={this.onLogout}{...this.props} />
           <ToastContainer transition={Zoom} closeButton={false} />
           <Suspense fallback={
             <div className='sweet-loading'>
@@ -78,13 +77,14 @@ class App extends Component {
                   loading={true}
               />
             </div>}>
-              <SlideMenu />
               <Switch>
                   <Route exact path="/" component={StartPage} />
                   {!loggedIn && <Route exact path="/register" component={RegisterPage} />}
                   {!loggedIn && <Route exact path="/login" component={LoginPage} />}
                   {loggedIn && <Route exact path={"/project"} component={ProjectPage}/>}
-                  <Redirect to="/" />
+                  {loggedIn && <Route exact path={"/project/resource"} component={ProjectPage}/>}
+                  {loggedIn && <Route exact path={"/project/select"} component={ProjectPage}/>}
+
               </Switch>
               {/*<Route exact path="/error" component={ErrorPage} />*/}
               {/*<Route component={ErrorPage} />*/}

@@ -30,26 +30,26 @@ class SlideMenu extends Component{
         this.setState({menuShow: show, visibility: visibility})
     }
 
-
-
     render() {
         const {menuShow} = this.state
         return(
             <Fragment>
-                {!menuShow && <div>
-                    <IconButton className="iconButton" onClick={() => this.onClickIcon(true, 'show')}>
-                        <i className="bi bi-list"/>
-                    </IconButton>
-                </div>}
-                <OutsideClickHandler onOutsideClick={()=> this.onClickIcon(false, 'hide')}>
-                    {menuShow && <div id="slideMenu" className={this.state.visibility} onClick={() => this.onClickIcon(true, 'show')}>
+                <div className='slide-menu-container'>
+                    {!menuShow &&
+                        <IconButton className="iconButton" onClick={() => this.onClickIcon(true, 'show')}>
+                            <i className="bi bi-list"/>
+                        </IconButton>
+                    }
+                    <OutsideClickHandler onOutsideClick={()=> this.onClickIcon(false, 'hide')}>
+                        {menuShow && <div id="slideMenu" className={this.state.visibility} onClick={() => this.onClickIcon(true, 'show')}>
 
-                        <span className='menu-span'><NavLink exact to="/">Home</NavLink></span>
-                        <span className='menu-span'><NavLink exact to="/project">Project</NavLink></span>
-                        <span className='menu-span'><NavLink exact to="/addResource">Add Resource</NavLink></span>
-                        <span className='menu-span'><NavLink exact to="/editColumn">Edit Column</NavLink></span>
-                    </div>}
-                </OutsideClickHandler>
+                            <span className='menu-span'><NavLink exact to="/">Home</NavLink></span>
+                            <span className='menu-span'><NavLink exact to="/project">Project</NavLink></span>
+                            <span className='menu-span'><NavLink exact to="/project/select">Add Resource</NavLink></span>
+                            {/*<span className='menu-span'><NavLink exact to="/editColumn">Edit Column</NavLink></span>*/}
+                        </div>}
+                    </OutsideClickHandler>
+                </div>
             </Fragment>
         )
     }

@@ -8,6 +8,7 @@ import {IconButton, InputAdornment} from "@material-ui/core";
 import Input from '@material-ui/core/Input';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import './css/form.css';
 
 class RegisterPage extends Component {
     constructor(props) {
@@ -129,8 +130,8 @@ class RegisterPage extends Component {
                             <div className="section-container">
                                 <section className="register-section">
                                     <div className="form-group">
-                                        <label htmlFor="username" >Username</label>
-                                        <input
+                                        <label htmlFor="username" >Username: </label>
+                                        <Input
                                             type="text"
                                             className={"form-control " + (shouldMarkError('username') ? "error" : "")}
                                             id="username"
@@ -145,8 +146,8 @@ class RegisterPage extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="email" >Email Address</label>
-                                        <input
+                                        <label htmlFor="email" >Email Address: </label>
+                                        <Input
                                             type="email"
                                             className={"form-control " + (shouldMarkError('email') ? "error" : "")}
                                             id="email"
@@ -162,7 +163,7 @@ class RegisterPage extends Component {
 
 
                                     <div className="form-group">
-                                        <label htmlFor="password" >Password</label>
+                                        <label htmlFor="password" >Password: </label>
                                         <Input
                                             type={this.state.touched.hiddenPass ? "text":"password"}
                                             className={"form-control " + (shouldMarkError('password') ? "error" : "")}
@@ -186,7 +187,7 @@ class RegisterPage extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="confirmPassword" >Confirm Password</label>
+                                        <label htmlFor="confirmPassword" >Confirm Password: </label>
                                         <Input
                                             type={this.state.touched.hiddenConfirmPass ? "text":"password"}
                                             className={"form-control " + (shouldMarkError('confirmPassword') ? "error" : "")}
@@ -212,7 +213,7 @@ class RegisterPage extends Component {
                                 </section>
                             </div>
 
-                            <div className="text-center">
+                            <div className="text-center" style={{display:"inline-block",marginLeft: 350, marginBottom:20}}>
                                 <button disabled={!isEnabled} type="submit" className="btn App-button-primary btn-lg m-3">Register</button>
                             </div>
                         </form>

@@ -8,5 +8,10 @@ export {
 }from './projectReducer'
 
 export {
-    resourceReducer
+    resourceReducer,
+    addResourceReducer
 } from './resourceReducer'
+
+export {
+    addColumnValueReducer
+}from './columnReducer'

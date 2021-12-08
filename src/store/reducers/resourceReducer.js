@@ -22,11 +22,24 @@ const loadResourceError = (state, action) => {
     });
 };
 
+const addResourceSuccess = (state, action) => {
+    return updateObject( state, { success: true, error: null} );
+}
+
+const addResourceError = (state, action) => {
+    return updateObject(state, {success: false, error: action.error})
+}
+
+const createResourceError = (state, action) => {
+    return updateObject(state, {success: false, error: action.error})
+}
+
+
 
 
 const resourceReducer = (
     state = {
-        resourceData:null,
+        resourceData:[],
         success: false,
         error:null,
         loading: false
@@ -40,6 +53,21 @@ const resourceReducer = (
     }
 }
 
+const addResourceReducer = (
+    state = {
+        success: false,
+        error: null
+    }, action) => {
+    switch ( action.type ) {
+        case actionTypes.ADD_RESOURCE_SUCCESS: return addResourceSuccess(state, action);
+        case actionTypes.ADD_RESOURCE_ERROR: return addResourceError(state, action);
+        case actionTypes.CREATE_RESOURCE_ERROR: return createResourceError(state, action);
+        default:
+            return state;
+    }
+}
+
 export {
-    resourceReducer
+    resourceReducer,
+    addResourceReducer
 }

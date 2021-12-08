@@ -10,5 +10,6 @@ export {
 }from './projectAction'
 
 export {
-    fetchResourceAction
+    fetchResourceAction,
+    addResourceAction
 }from './resourceAction'

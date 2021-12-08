@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import serviceWorker from './serviceWorker';
-import {loginReducer, registerReducer, projectReducer, resourceReducer} from './store/reducers';
+import {loginReducer, registerReducer, projectReducer, resourceReducer, addResourceReducer, addColumnValueReducer} from './store/reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -17,7 +17,9 @@ const rootReducer = combineReducers({
     login: loginReducer,
     register: registerReducer,
     project: projectReducer,
-    resource: resourceReducer
+    resource: resourceReducer,
+    addResource: addResourceReducer,
+    addColumnValue: addColumnValueReducer
 });
 
 const store = createStore(rootReducer, composeWithDevTools(

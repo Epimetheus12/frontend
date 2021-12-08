@@ -7,6 +7,7 @@ import Input from "@material-ui/core/Input";
 import {IconButton, InputAdornment} from "@material-ui/core";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
+import './css/form.css';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -105,8 +106,8 @@ class LoginPage extends Component {
 
                     <form className="Login-form-container" onSubmit={this.onSubmitHandler}>
                         <div className="form-group">
-                            <label htmlFor="username" >Username</label>
-                            <input
+                            <label htmlFor="username" >Username: </label>
+                            <Input
                                 type="text"
                                 className={"form-control " + (shouldMarkError('username') ? "error" : "")}
                                 id="username"
@@ -121,7 +122,7 @@ class LoginPage extends Component {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="password" >Password</label>
+                            <label htmlFor="password" >Password: </label>
                             <Input
                                 type={this.state.touched.hiddenPass ? "text":"password"}
                                 className={"form-control " + (shouldMarkError('password') ? "error" : "")}
@@ -144,7 +145,7 @@ class LoginPage extends Component {
                             {shouldMarkError('password') && <small id="passwordHelp" className="form-text alert alert-danger">{(!this.state.password ? 'Password is required!' : 'Password should be at least 8 and maximum 30 characters long, and should contain number, upper case and lower case alphabet, special character!')}</small>}
                         </div>
 
-                        <div className="text-center">
+                        <div className="text-center" style={{display:"inline-block", marginLeft:100, marginBottom:20}}>
                             <button disabled={!isEnabled} type="submit" className="btn App-button-primary btn-lg m-3">Login</button>
                         </div>
                     </form>

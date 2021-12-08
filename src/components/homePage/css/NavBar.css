@@ -1,0 +1,41 @@
+.navbar-wrapper {
+    height: 50px;
+    margin-bottom: auto;
+    background-color: coral;
+}
+
+.nav-logo-container {
+    width: 150px;
+    position: relative;
+    float: left;
+    margin-top: 10px;
+    font-size: 20px;
+    color: snow;
+    margin-left: 20px;
+}
+
+/*.nav-link {*/
+
+/*}*/
+
+.nav-ul {
+    display: inline;
+    float: right;
+    color: snow;
+}
+
+
+.nav-ul li {
+    display: inline;
+    margin-right: 20px;
+}
+.name-panel{
+    display: inline;
+    margin-right: 10px;
+    background-color: white;
+}
+
+.slide-menu-container {
+    display: inline;
+    float: left;
+}

@@ -1,4 +1,4 @@
-import {requester, userService, checkStatus} from '../../infrastructure';
+import {requester, checkStatus} from '../../infrastructure';
 import * as actionTypes from './actionTypes';
 
 
@@ -8,7 +8,7 @@ function loadProjectStart(){
     }
 }
 
-function loadAllProjectSuccess(data) {
+export const loadProjectSuccess = (data) =>{
     return {
         type: actionTypes.FETCH_PROJECTS_SUCCESS,
         data: data
@@ -25,11 +25,10 @@ function loadProjectError(err) {
 export const fetchAllProjectAction = () => {
     return dispatch => {
         dispatch(loadProjectStart());
-        requester.get('/project/all').then(checkStatus)
+         requester.get('/project/all').then(checkStatus)
             .then(data => {
-                dispatch(loadAllProjectSuccess(data.data))
+                dispatch(loadProjectSuccess(data.data))
             }).catch(err => {
-            localStorage.clear();
             dispatch(loadProjectError(`${err.message}`));
         })
     };
